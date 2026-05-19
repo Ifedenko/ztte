@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}?v=4">
+    <link rel="shortcut icon" href="{% static 'images/icons/logo.ico' %}" type="image/x-icon">
+    <title>Музей ЗТТиЭ</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header_container">
+            <div class="header_top">
+                <div class="auth_container">
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'logout' %}" class="logout-form">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-btn">Выйти из аккаунта</button>
+                        </form>
+                        <a href="{% url 'profile' %}" class="auth_link profile-link">Личный кабинет</a>
+                    {% else %}
+                        <a href="{% url 'register' %}" class="auth_link">Зарегистрироваться</a>
+                        <a href="{% url 'login' %}" class="auth_link">Войти</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="header_bottom">
+                <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt="Логотип" class="logo"></a>
+                <nav class="nav">
+                    <ul class="nav_list">
+                        <li class="nav_item"><a href="{% url 'history' %}" class="nav_link">ИСТОРИЯ</a></li>
+                        <li class="nav_item"><a href="{% url 'fotogallery' %}" class="nav_link">ФОТОГАЛЕРЕЯ</a></li>
+                        <li class="nav_item"><a href="{% url 'excursion' %}" class="nav_link">ЭКСКУРСИЯ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="start_container">
+            <div class="banner">
+                <img class="banner_img" src="{% static 'images/events/ztttee.png' %}" alt="Баннер">
+                <div class="text_container">
+                    <p class="start_text">МЫ ЖДЕМ ВАС!</p>
+                    <p class="start_link_text">Записаться на экскурсию можно по телефону или у нас на сайте.</p>
+                    <a href="#excursions" class="start_link">Записаться</a>    
+                </div>
+            </div>
+        </div>
+
+        <div class="recentEvents_container">
+            <div class="title_block">
+                <h1 class="recentEvents_title">Недавние события</h1>
+            </div>
+            <div class="recentEvents_block">
+                {% for event in recent_events %}
+                    <div class="re_item" data-id="{{ event.id }}"
+                         data-title="{{ event.title }}"
+                         data-description="{{ event.description }}"
+                         data-date="{{ event.date|date:'d.m.Y' }}"
+                         data-image="{{ event.image.url }}">
+                        <img class="re_img" src="{{ event.image.url }}" alt="{{ event.title }}">
+                        <h2 class="re_title">{{ event.title }}</h2>
+                        <p class="re_description">{{ event.description|truncatewords:20 }}</p>
+                    </div>
+                    {% empty %}
+                    <div class="no-photos">Событий пока нет</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="fotogallery_container">
+            <div class="title_block">
+                <h1 class="fotogallery_title">Фотогалерея</h1>
+            </div>
+            <div class="gallery_block">
+                <div class="scroll-slider" id="scrollSlider">
+                    <div class="scroll-wrapper">
+                        <div class="card"><img class="card_img" src="{% static 'images/fotogallery/50let.png' %}" alt=""></div>
+                        <div class="card"><img class="card_img" src="{% static 'images/fotogallery/kom_el_d.png' %}" alt=""></div>
+                        <div class="card"><img class="card_img" src="{% static 'images/fotogallery/kom_inf_d.png' %}" alt=""></div>
+                        <div class="card"><img class="card_img" src="{% static 'images/fotogallery/old_teh.png' %}" alt=""></div>
+                        <div class="card"><img class="card_img" src="{% static 'images/fotogallery/34tgfdsfs.png' %}" alt=""></div>
+                    </div>
+                </div>
+                <button class="slider-btn btn-prev" id="prevBtn">◀</button>
+                <button class="slider-btn btn-next" id="nextBtn">▶</button>
+            </div>
+        </div>
+        <div class="choiceMethods_container">
+            <h1 class="title">Выберите свой способ погружения в историю</h1>
+            <div class="block_container">
+                <div class="live_block">
+                    <h3 class="live_title">Очные экскурсии</h3>
+                    <p class="live_description">Живое общение с гидом, возможность прикоснуться к экспонатам, атмосфера музея. Для групп от 5 до 20 человек.</p>
+                    <p class="descriptionPlus">✓ Интерактивные программы</p>
+                    <p class="descriptionPlus">✓ Возможность задать вопросы</p>
+                    <p class="descriptionPlus">✓ Доступ к закрытым экспозициям</p>
+                </div>
+                <div class="vr_block">
+                    <h3 class="vr_title">Виртуальный 3D-тур</h3>
+                    <p class="vr_description">Полное погружение без выхода из дома. Исследуйте музей с любого устройства в любое время.</p>
+                    <p class="descriptionPlus">✓ Панорамы 360°</p>
+                    <p class="descriptionPlus">✓ Аудиогид по залам</p>
+                    <p class="descriptionPlus">✓ Дополненная реальность</p>
+                </div>
+            </div>
+            <a href="{% url 'excursion' %}" class="vrExecursion_btn">Посетить 3D-тур</a>
+        </div>
+
+        <div class="contact_container" id="excursions">
+            <div class="contact_wrapper">
+                <div class="map_block">
+                    <iframe 
+                        src="https://yandex.com/map-widget/v1/?ll=59.649383%2C55.181232&mode=poi&poi%5Bpoint%5D=59.649376%2C55.181157&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D1029663657&z=18.48" 
+                        width="100%" 
+                        height="400" 
+                        frameborder="1" 
+                        allowfullscreen 
+                        style="border-radius: 15px; border: 2px solid #0086FF;">
+                    </iframe>
+                </div>
+                <div class="booking-form">
+                    <h3 class="booking-form-title">Форма записи</h3>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label class="form-label">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="field-error">{{ field.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn-primary full-width">Отправить заявку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="sections_block">
+            <h3 class="sections_title">РАЗДЕЛЫ</h3>
+            <a href="{% url 'history' %}" class="sections_link">История</a>
+            <a href="{% url 'fotogallery' %}" class="sections_link">Фотогалерея</a>
+            <a href="{% url 'excursion' %}" class="sections_link">Экскурсия</a>
+        </div>
+        <div class="contact_block">
+            <h3 class="contact_title">КОНТАКТНАЯ ИНФОРМАЦИЯ</h3>
+            <p class="contact_text">Златоуст, ул. Карла Маркса, 37Б</p>
+            <p class="contact_text">Пн-Пт: 8:30-17:00</p>
+            <p class="contact_text">+7 (3513) 79-07-80</p>
+        </div>
+    </footer>
+
+    <div id="eventModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <div class="modal-inner">
+                <div class="modal-image">
+                    <img id="eventModalImage" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h2 id="eventModalTitle"></h2>
+                    <div class="date" id="eventModalDate"></div>
+                    <div class="description" id="eventModalDescription"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+

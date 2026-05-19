@@ -1,0 +1,70 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="shortcut icon" href="{% static 'images/icons/logo.ico'%}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <div class="title_card">Добро пожаловать</div>
+                <div class="description_card">Войдите в свой аккаунт</div>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
+                    <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}"
+                           value="{{ form.username.value|default_if_none:'' }}">
+                    {% if form.username.errors %}
+                        <ul class="error-list">
+                            {% for error in form.username.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Пароль</label>
+                    <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}">
+                    {% if form.password.errors %}
+                        <ul class="error-list">
+                            {% for error in form.password.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                {% if form.non_field_errors %}
+                    <ul class="error-list non-field">
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="btn-container">
+                    <input type="submit" value="Войти">
+                </div>
+            </form>
+
+            <div class="auth-links">
+                Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a><br>
+                <a href="{% url 'home' %}">Вернуться на главную</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

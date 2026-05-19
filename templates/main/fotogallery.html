@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/fotogallery.css' %}?v=3">
+    <link rel="shortcut icon" href="{% static 'images/icons/logo.ico' %}" type="image/x-icon">
+    <title>Фотогалерея</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header_container">
+            <div class="header_top">
+                <div class="auth_container">
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'logout' %}" class="logout-form">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-btn">Выйти из аккаунта</button>
+                        </form>
+                        <a href="{% url 'profile' %}" class="auth_link profile-link">Личный кабинет</a>
+                    {% else %}
+                        <a href="{% url 'register' %}" class="auth_link">Зарегистрироваться</a>
+                        <a href="{% url 'login' %}" class="auth_link">Войти</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="header_bottom">
+                <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt="Логотип" class="logo"></a>
+                <nav class="nav">
+                    <ul class="nav_list">
+                        <li class="nav_item"><a href="{% url 'history' %}" class="nav_link">ИСТОРИЯ</a></li>
+                        <li class="nav_item"><a href="{% url 'fotogallery' %}" class="nav_link active">ФОТОГАЛЕРЕЯ</a></li>
+                        <li class="nav_item"><a href="{% url 'excursion' %}" class="nav_link">ЭКСКУРСИЯ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container gallery_container">
+            <h1 class="gallery_main_title">Фотогалерея</h1>
+
+            <div class="filters">
+                <button class="filter-btn {% if current_filter == 'recent' %}active{% endif %}" data-filter="recent">Недавнее</button>
+                <button class="filter-btn {% if current_filter == 'this_month' %}active{% endif %}" data-filter="this_month">Этот месяц</button>
+                <button class="filter-btn {% if current_filter == 'this_year' %}active{% endif %}" data-filter="this_year">Этот год</button>
+
+                <select class="year-select" id="yearSelect">
+                    <option value="">Выберите год</option>
+                    {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+
+                <select class="month-select" id="monthSelect" style="display: none;">
+                    <option value="">Выберите месяц</option>
+                    {% for month_num, month_name in months %}
+                        <option value="{{ month_num }}">{{ month_name }}</option>
+                    {% endfor %}
+                </select>
+
+                <button class="filter-btn {% if current_filter == 'old' %}active{% endif %}" data-filter="old">📜 Давние</button>
+            </div>
+
+            <div class="gallery-grid">
+                {% for photo in photos %}
+                    <div class="gallery-item" data-id="{{ photo.id }}">
+                        <img src="{{ photo.image.url }}" alt="{{ photo.title }}" loading="lazy">
+                        <div class="overlay">
+                            <h3>{{ photo.title }}</h3>
+                            <p>{{ photo.date|date:"d.m.Y" }}</p>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="no-photos">Фотографий нет</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="modal" class="modal">
+            <span class="close">&times;</span>
+            <div class="modal-content">
+                <div class="modal-inner">
+                    <div class="modal-image">
+                        <img id="modalImage" src="" alt="">
+                    </div>
+                    <div class="modal-info">
+                        <h2 id="modalTitle"></h2>
+                        <div class="date" id="modalDate"></div>
+                        <div class="description" id="modalDescription"></div>
+                        <div class="meta" id="modalMeta"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="sections_block">
+            <h3 class="sections_title">РАЗДЕЛЫ</h3>
+            <a href="{% url 'history' %}" class="sections_link">История</a>
+            <a href="{% url 'fotogallery' %}" class="sections_link">Фотогалерея</a>
+            <a href="{% url 'excursion' %}" class="sections_link">Экскурсия</a>
+        </div>
+        <div class="contact_block">
+            <h3 class="contact_title">КОНТАКТНАЯ ИНФОРМАЦИЯ</h3>
+            <p class="contact_text">Златоуст, ул. Карла Маркса, 37Б</p>
+            <p class="contact_text">Пн-Пт: 8:30-17:00</p>
+            <p class="contact_text">+7 (3513) 79-07-80</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/fotogallery.js' %}"></script>
+</body>
+</html>

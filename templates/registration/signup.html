@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="shortcut icon" href="{% static 'images/icons/logo.ico'%}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <div class="title_card">Создать аккаунт</div>
+                <div class="description_card">Заполните поля ниже</div>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
+                    <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}"
+                           value="{{ form.username.value|default_if_none:'' }}">
+                    {% if form.username.errors %}
+                        <ul class="error-list">
+                            {% for error in form.username.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password1.id_for_label }}">Пароль</label>
+                    <input type="password" name="{{ form.password1.name }}" id="{{ form.password1.id_for_label }}">
+                    {% if form.password1.errors %}
+                        <ul class="error-list">
+                            {% for error in form.password1.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password2.id_for_label }}">Подтверждение пароля</label>
+                    <input type="password" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}">
+                    {% if form.password2.errors %}
+                        <ul class="error-list">
+                            {% for error in form.password2.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="btn-container">
+                    <input type="submit" value="Зарегистрироваться">
+                </div>
+            </form>
+
+            <div class="auth-links">
+                Уже есть аккаунт? <a href="{% url 'login' %}">Войдите</a><br>
+                <a href="{% url 'home' %}">Вернуться на главную</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

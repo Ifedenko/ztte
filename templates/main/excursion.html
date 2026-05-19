@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/excursion.css' %}?v=3">
+    <link rel="shortcut icon" href="{% static 'images/icons/logo.ico' %}" type="image/x-icon">
+    <title>Экскурсия в музее</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header_container">
+            <div class="header_top">
+                <div class="auth_container">
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'logout' %}" class="logout-form">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-btn">Выйти из аккаунта</button>
+                        </form>
+                        <a href="{% url 'profile' %}" class="auth_link profile-link">Личный кабинет</a>
+                    {% else %}
+                        <a href="{% url 'register' %}" class="auth_link">Зарегистрироваться</a>
+                        <a href="{% url 'login' %}" class="auth_link">Войти</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="header_bottom">
+                <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt="Логотип" class="logo"></a>
+                <nav class="nav">
+                    <ul class="nav_list">
+                        <li class="nav_item"><a href="{% url 'history' %}" class="nav_link">ИСТОРИЯ</a></li>
+                        <li class="nav_item"><a href="{% url 'fotogallery' %}" class="nav_link">ФОТОГАЛЕРЕЯ</a></li>
+                        <li class="nav_item"><a href="{% url 'excursion' %}" class="nav_link active">ЭКСКУРСИЯ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="invite-section">
+            <div class="invite-content">
+                <h1>Приглашаем на экскурсию онлайн</h1>
+                <p>Погрузитесь в историю техникума, не выходя из дома. Живые рассказы, архивные фото и уникальные экспонаты.</p>
+                <a href="#video-section" class="btn-primary">Смотреть</a>
+            </div>
+            <div class="booking-form-card">
+                <h3>Записаться на экскурсию</h3>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert-success">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label>{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="field-error">{{ field.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn-primary full-width">Отправить заявку</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="collage-section">
+            <h2>Атмосфера наших экскурсий</h2>
+            <div class="collage-grid">
+                {% for img in collage_images %}
+                    <div class="collage-item">
+                        <img src="{{ img.image.url }}" alt="{{ img.title }}">
+                    </div>
+                {% empty %}
+                    <p class="no-photos">Загрузите 5 фотографий в админ-панель (модель CollageImage)</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="video-section" class="video-section">
+            <h2>Онлайн-экскурсия</h2>
+            <div class="video-wrapper">
+                <iframe 
+                    title="Онлайн экскурсия по музею" 
+                    src="https://rutube.ru/play/embed/4911526727f28c8766bf03b1313b9c22/?p=YgGCyDb8Mf9HoRjk4DpAkA"  
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    webkitAllowFullScreen
+                    frameborder="0"  
+                    mozallowfullscreen 
+                    allowFullScreen>
+                </iframe>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="sections_block">
+            <h3 class="sections_title">РАЗДЕЛЫ</h3>
+            <a href="{% url 'history' %}" class="sections_link">История</a>
+            <a href="{% url 'fotogallery' %}" class="sections_link">Фотогалерея</a>
+            <a href="{% url 'excursion' %}" class="sections_link">Экскурсия</a>
+        </div>
+        <div class="contact_block">
+            <h3 class="contact_title">КОНТАКТНАЯ ИНФОРМАЦИЯ</h3>
+            <p class="contact_text">Златоуст, ул. Карла Маркса, 37Б</p>
+            <p class="contact_text">Пн-Пт: 8:30-17:00</p>
+            <p class="contact_text">+7 (3513) 79-07-80</p>
+        </div>
+    </footer>
+</body>
+</html>

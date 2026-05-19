@@ -1,0 +1,446 @@
+/* ========== ГЛОБАЛЬНЫЕ СТИЛИ (как в home.css) ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "museo_sans_cyrl700", Arial, sans-serif;
+    font-size: 16px;
+}
+
+body {
+    background-color: #E2EDF9;
+    margin: 0 auto;
+    max-width: 1200px;
+    box-shadow: 0px 0px 5px 0px black;
+}
+
+.main {
+    background-color: #fff;
+}
+
+/* ========== HEADER (полностью как в home) ========== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header_container {
+    display: flex;
+    height: 144px;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 0 30px;
+    gap: 10px;
+    border-bottom: 3px solid #0086FF;
+}
+
+.header_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid #0086FF;
+}
+
+.auth_container {
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.auth_link {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    font-weight: bold;
+}
+.auth_link:hover {
+    color: #0086FF;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    transition: color 0.2s;
+}
+.logout-btn:hover {
+    color: #0086FF;
+}
+
+.auth_link.profile-link {
+    background-color: #0086FF;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+.auth_link.profile-link:hover {
+    background-color: #2e9eff;
+    color: white;
+}
+
+.header_bottom {
+    display: flex;
+    height: 84px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 90px;
+    width: 90px;
+}
+
+.nav_list {
+    list-style: none;
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+}
+
+.nav_link {
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    font-size: 14px;
+    user-select: none;
+}
+.nav_link:hover,
+.nav_link.active {
+    color: #0086FF;
+}
+
+/* ========== КОНТЕЙНЕР ГАЛЕРЕИ ========== */
+.gallery_container {
+    padding: 30px 20px 50px;
+    background-color: #fff;
+}
+
+.gallery_main_title {
+    color: #555;
+    border-bottom: 3px solid #0086FF;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* ========== ФИЛЬТРЫ ========== */
+.filters {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 40px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.filter-btn {
+    background: none;
+    border: 2px solid #0086FF;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #0086FF;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.filter-btn:hover,
+.filter-btn.active {
+    background-color: #0086FF;
+    color: white;
+}
+.filter-btn.active {
+    box-shadow: 0 2px 8px rgba(0, 134, 255, 0.3);
+}
+
+.year-select,
+.month-select {
+    padding: 8px 15px;
+    border: 2px solid #0086FF;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.year-select:hover,
+.month-select:hover {
+    border-color: #2e9eff;
+    background-color: #f0f8ff;
+}
+
+/* ========== СЕТКА ГАЛЕРЕИ ========== */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.gallery-item img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    padding: 20px 15px;
+    transform: translateY(100%);
+    transition: transform 0.25s ease-out;
+    color: white;
+}
+.gallery-item:hover .overlay {
+    transform: translateY(0);
+}
+.overlay h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.overlay p {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.no-photos {
+    text-align: center;
+    padding: 60px;
+    background: #f9f9f9;
+    border-radius: 15px;
+    color: #888;
+    font-size: 1.2rem;
+    grid-column: 1 / -1;
+}
+
+/* ========== МОДАЛЬНОЕ ОКНО ========== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    animation: fadeInModal 0.2s;
+}
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    position: relative;
+    margin: 5% auto;
+    width: 90%;
+    max-width: 1100px;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+.modal-inner {
+    display: flex;
+    flex-wrap: wrap;
+}
+.modal-image {
+    flex: 2;
+    min-height: 400px;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-image img {
+    width: 100%;
+    height: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+}
+.modal-info {
+    flex: 1;
+    padding: 30px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.modal-info h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0;
+    border-left: 4px solid #0086FF;
+    padding-left: 15px;
+}
+.modal-info .date {
+    font-size: 1rem;
+    color: #0086FF;
+    font-weight: bold;
+}
+.modal-info .description {
+    line-height: 1.5;
+    color: #555;
+    font-size: 1rem;
+}
+.modal-info .meta {
+    font-size: 0.85rem;
+    color: #888;
+    border-top: 1px solid #ddd;
+    padding-top: 15px;
+    margin-top: 5px;
+}
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    z-index: 2100;
+    transition: color 0.2s;
+    text-shadow: 0 1px 2px black;
+}
+.close:hover {
+    color: #0086FF;
+}
+
+/* ========== FOOTER (как в home.css) ========== */
+.footer {
+    height: auto;
+    min-height: 20vh;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0px -5px 5px -5px rgba(34, 60, 80, 0.6);
+    background-color: #126cbb;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+}
+
+.sections_block {
+    color: white;
+    font-size: 0.5rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+.sections_title {
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+.sections_link {
+    padding-bottom: 5px;
+    text-decoration: none;
+    color: white;
+}
+.sections_link:hover {
+    color: #b1dbff;
+}
+
+.contact_block {
+    color: white;
+    font-size: 0.5rem;
+}
+.contact_title {
+    padding-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.contact_text {
+    padding-bottom: 5px;
+}
+
+/* ========== АДАПТИВ ========== */
+@media (max-width: 768px) {
+    .header_container {
+        height: auto;
+        padding: 0 15px;
+    }
+    .header_bottom {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 0;
+    }
+    .nav_list {
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .auth_container {
+        width: 100%;
+        justify-content: center;
+    }
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+    }
+    .gallery-item img {
+        height: 200px;
+    }
+    .modal-inner {
+        flex-direction: column;
+    }
+    .modal-image {
+        min-height: 250px;
+    }
+    .modal-info {
+        padding: 20px;
+    }
+    .filters {
+        gap: 10px;
+    }
+    .filter-btn, .year-select, .month-select {
+        padding: 6px 15px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    .gallery_main_title {
+        font-size: 1.6rem;
+    }
+}

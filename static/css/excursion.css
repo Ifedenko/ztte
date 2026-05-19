@@ -1,0 +1,333 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "museo_sans_cyrl700", Arial, sans-serif;
+    font-size: 16px;
+}
+body {
+    background-color: #E2EDF9;
+    margin: 0 auto;
+    max-width: 1200px;
+    box-shadow: 0px 0px 5px 0px black;
+}
+.main {
+    background-color: #fff;
+}
+
+/* ========== HEADER (унифицированный) ========== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.header_container {
+    display: flex;
+    height: 144px;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 0 30px;
+    gap: 10px;
+    border-bottom: 3px solid #0086FF;
+}
+.header_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid #0086FF;
+}
+.auth_container {
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.auth_link {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    font-weight: bold;
+}
+.auth_link:hover {
+    color: #0086FF;
+}
+.logout-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    transition: color 0.2s;
+}
+.logout-btn:hover {
+    color: #0086FF;
+}
+.auth_link.profile-link {
+    background-color: #0086FF;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+.auth_link.profile-link:hover {
+    background-color: #2e9eff;
+    color: white;
+}
+.header_bottom {
+    display: flex;
+    height: 84px;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    height: 90px;
+    width: 90px;
+}
+.nav_list {
+    list-style: none;
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+}
+.nav_link {
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    font-size: 14px;
+    user-select: none;
+}
+.nav_link:hover,
+.nav_link.active {
+    color: #0086FF;
+}
+
+/* ========== ОСНОВНЫЕ СЕКЦИИ (без изменений) ========== */
+.invite-section {
+    display: flex;
+    gap: 40px;
+    padding: 50px 30px;
+    background: linear-gradient(135deg, #f0f8ff 0%, #fff 100%);
+    border-radius: 20px;
+    margin: 30px 20px;
+}
+.invite-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.invite-content h1 {
+    font-size: 2.2rem;
+    color: #0086FF;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.invite-content p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+.booking-form-card {
+    flex: 1;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+.booking-form-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #555;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #0086FF;
+    font-weight: bold;
+}
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+.btn-primary {
+    display: inline-block;
+    background-color: #0086FF;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-primary:hover {
+    background-color: #2e9eff;
+}
+.full-width {
+    width: 100%;
+    text-align: center;
+}
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.collage-section {
+    padding: 40px 20px;
+    text-align: center;
+}
+.collage-section h2 {
+    font-size: 2rem;
+    color: #555;
+    border-bottom: 3px solid #0086FF;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+.collage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.collage-item {
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.collage-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+.collage-item img:hover {
+    transform: scale(1.03);
+}
+
+.video-section {
+    padding: 50px 20px;
+    text-align: center;
+}
+.video-section h2 {
+    font-size: 2rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+.video-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.video-wrapper iframe {
+    width: 100%;
+    height: 450px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.video-note {
+    margin-top: 15px;
+    color: #888;
+    font-style: italic;
+}
+
+/* ========== FOOTER (унифицированный, адаптивный) ========== */
+.footer {
+    height: auto;
+    min-height: 20vh;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0px -5px 5px -5px rgba(34, 60, 80, 0.6);
+    background-color: #126cbb;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+}
+.sections_block {
+    color: white;
+    font-size: 0.5rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+.sections_title {
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+.sections_link {
+    padding-bottom: 5px;
+    text-decoration: none;
+    color: white;
+}
+.sections_link:hover {
+    color: #b1dbff;
+}
+.contact_block {
+    color: white;
+    font-size: 0.5rem;
+}
+.contact_title {
+    padding-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.contact_text {
+    padding-bottom: 5px;
+}
+
+/* ========== АДАПТИВ ========== */
+@media (max-width: 800px) {
+    .invite-section {
+        flex-direction: column;
+        padding: 30px 20px;
+    }
+    .collage-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    .video-wrapper iframe {
+        height: 250px;
+    }
+}
+
+/* Дополнительная адаптация шапки */
+@media (max-width: 768px) {
+    .header_container {
+        height: auto;
+        padding: 0 15px;
+    }
+    .header_bottom {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 0;
+    }
+    .nav_list {
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .auth_container {
+        width: 100%;
+        justify-content: center;
+    }
+}

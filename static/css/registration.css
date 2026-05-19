@@ -1,0 +1,144 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "museo_sans_cyrl700", Arial, sans-serif;
+    font-size: 16px;
+}
+
+body {
+    background-color: #E2EDF9;
+    margin: 0 auto;
+    max-width: 1200px;
+
+}
+
+.container {
+
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-box form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-box form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #1e293b;
+    font-size: 14px;
+}
+
+.auth-container {
+    height: auto;
+    min-height: 50vh;
+    width: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #0086FF;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    padding: 30px;
+}
+
+.auth-box {
+    width: 100%;
+}
+
+.auth-box form input:not([type="submit"]) {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 5px;
+}
+
+.auth-box form input:focus {
+    outline: none;
+    border-color: #0086FF;
+    box-shadow: 0 0 0 3px rgba(123, 169, 217, 0.2);
+}
+
+.btn-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+ul.error-list {
+    list-style: none;
+    padding: 5px 0 10px 0;
+    color: #dc2626;
+    font-size: 13px;
+}
+
+ul.error-list li {
+    margin-bottom: 3px;
+}
+
+.auth-box form input[type="submit"] {
+    background-color: #0086FF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    transition: background-color 0.2s;
+}
+
+.auth-box form input[type="submit"]:hover {
+    background-color: #2e9eff;
+}
+
+.auth-header {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.title_card {
+    font-size: 1.5rem;
+    padding-bottom: 10px;
+    color: #0086FF;
+}
+
+.description_card {
+    font-size: 1.2rem;
+}
+
+.auth-links {
+    padding-top: 20px;
+    text-align: center;
+    color: #555;
+}
+
+a {
+    text-decoration: none;
+    color: #0086FF;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
