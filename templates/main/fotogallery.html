@@ -47,28 +47,13 @@
                 <button class="filter-btn {% if current_filter == 'recent' %}active{% endif %}" data-filter="recent">Недавнее</button>
                 <button class="filter-btn {% if current_filter == 'this_month' %}active{% endif %}" data-filter="this_month">Этот месяц</button>
                 <button class="filter-btn {% if current_filter == 'this_year' %}active{% endif %}" data-filter="this_year">Этот год</button>
-
-                <select class="year-select" id="yearSelect">
-                    <option value="">Выберите год</option>
-                    {% for year in years %}
-                        <option value="{{ year }}">{{ year }}</option>
-                    {% endfor %}
-                </select>
-
-                <select class="month-select" id="monthSelect" style="display: none;">
-                    <option value="">Выберите месяц</option>
-                    {% for month_num, month_name in months %}
-                        <option value="{{ month_num }}">{{ month_name }}</option>
-                    {% endfor %}
-                </select>
-
-                <button class="filter-btn {% if current_filter == 'old' %}active{% endif %}" data-filter="old">📜 Давние</button>
+                <button class="filter-btn {% if current_filter == 'old' %}active{% endif %}" data-filter="old">Давние</button>
             </div>
 
             <div class="gallery-grid">
                 {% for photo in photos %}
                     <div class="gallery-item" data-id="{{ photo.id }}">
-                        <img src="{{ photo.image.url }}" alt="{{ photo.title }}" loading="lazy">
+                        <img loading="lazy" src="{{ photo.image.url }}" alt="{{ photo.title }}" loading="lazy">
                         <div class="overlay">
                             <h3>{{ photo.title }}</h3>
                             <p>{{ photo.date|date:"d.m.Y" }}</p>
@@ -79,22 +64,23 @@
                 {% endfor %}
             </div>
         </div>
-        <div id="modal" class="modal">
-            <span class="close">&times;</span>
-            <div class="modal-content">
-                <div class="modal-inner">
-                    <div class="modal-image">
-                        <img id="modalImage" src="" alt="">
-                    </div>
-                    <div class="modal-info">
-                        <h2 id="modalTitle"></h2>
-                        <div class="date" id="modalDate"></div>
-                        <div class="description" id="modalDescription"></div>
-                        <div class="meta" id="modalMeta"></div>
-                    </div>
-                </div>
+<div id="modal" class="modal">
+    <span class="close">&times;</span>
+    <div class="modal-content">
+        <div class="modal-inner">
+            <div class="modal-image">
+                <img loading="lazy" id="modalImage" src="" alt="">
+            </div>
+            <div class="modal-info" style="overflow-y: auto; max-height: 60vh;">
+                <h2 id="modalTitle"></h2>
+                <div class="date" id="modalDate"></div>
+                <div class="description" id="modalDescription"></div>
+                <div class="meta" id="modalMeta"></div>
             </div>
         </div>
+    </div>
+</div>
+
     </main>
 
     <footer class="footer">

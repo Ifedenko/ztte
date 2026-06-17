@@ -73,7 +73,7 @@
             <div class="collage-grid">
                 {% for img in collage_images %}
                     <div class="collage-item">
-                        <img src="{{ img.image.url }}" alt="{{ img.title }}">
+                        <img loading="lazy" src="{{ img.image.url }}" alt="{{ img.title }}">
                     </div>
                 {% empty %}
                     <p class="no-photos">Загрузите 5 фотографий в админ-панель (модель CollageImage)</p>
@@ -84,13 +84,13 @@
         <div id="video-section" class="video-section">
             <h2>Онлайн-экскурсия</h2>
             <div class="video-wrapper">
-                <iframe 
-                    title="Онлайн экскурсия по музею" 
-                    src="https://rutube.ru/play/embed/4911526727f28c8766bf03b1313b9c22/?p=YgGCyDb8Mf9HoRjk4DpAkA"  
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                <iframe
+                    title="Онлайн экскурсия по музею"
+                    src="https://rutube.ru/play/embed/4911526727f28c8766bf03b1313b9c22"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     webkitAllowFullScreen
-                    frameborder="0"  
-                    mozallowfullscreen 
+                    frameborder="0"
+                    mozallowfullscreen
                     allowFullScreen>
                 </iframe>
             </div>

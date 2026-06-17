@@ -59,9 +59,9 @@
                     <div class="event_card">
                         <div class="event_image">
                             {% if event.image %}
-                                <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                                <img loading="lazy" src="{{ event.image.url }}" alt="{{ event.title }}">
                             {% else %}
-                                <img src="{% static 'images/placeholder.png' %}" alt="нет фото">
+                                <img loading="lazy" src="{% static 'images/placeholder.png' %}" alt="нет фото">
                             {% endif %}
                         </div>
                         <div class="event_info">
