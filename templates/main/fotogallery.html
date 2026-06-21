@@ -49,20 +49,43 @@
                 <button class="filter-btn {% if current_filter == 'this_year' %}active{% endif %}" data-filter="this_year">Этот год</button>
                 <button class="filter-btn {% if current_filter == 'old' %}active{% endif %}" data-filter="old">Давние</button>
             </div>
-
             <div class="gallery-grid">
+
                 {% for photo in photos %}
-                    <div class="gallery-item" data-id="{{ photo.id }}">
-                        <img loading="lazy" src="{{ photo.image.url }}" alt="{{ photo.title }}" loading="lazy">
-                        <div class="overlay">
-                            <h3>{{ photo.title }}</h3>
-                            <p>{{ photo.date|date:"d.m.Y" }}</p>
-                        </div>
-                    </div>
-                {% empty %}
-                    <div class="no-photos">Фотографий нет</div>
-                {% endfor %}
+                <div class="gallery-item" data-id="{{ photo.id }}">
+                <div class="blur-container"
+                    style="background-image: url('{{ photo.image_blur.url }}');">
+
+                    <picture>
+                        <source type="image/webp"
+                        srcset="{{ photo.image_mobile.url }} 480w,
+                                {{ photo.image_tablet.url }} 960w,
+                                {{ photo.image_desktop.url }} 1440w"
+                        sizes="(max-width: 600px) 480px,
+                               (max-width: 1024px) 960px,
+                               1440px">
+
+                        <img
+                        src="{{ photo.image.url }}"
+                        alt="{{ photo.title }}"
+                        class="main-img"
+                        loading="lazy"
+                        onload="this.classList.add('loaded')">
+                    </picture>
+
+                </div>
+
+            <div class="overlay">
+                <h3>{{ photo.title }}</h3>
+                <p>{{ photo.date|date:"d.m.Y" }}</p>
             </div>
+
+        </div>
+    {% empty %}
+        <div class="no-photos">Фотографий нет</div>
+    {% endfor %}
+
+</div>
         </div>
 <div id="modal" class="modal">
     <span class="close">&times;</span>

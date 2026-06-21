@@ -2,8 +2,8 @@ from django.contrib import admin
 from .models import *
 from django.utils.html import format_html
 from .forms import *
-admin.site.site_header = 'Библиотека ЗТТиЭ'  
-admin.site.site_title = 'Панель управления'     
+admin.site.site_header = 'Музей ЗТТиЭ'
+admin.site.site_title = 'Панель управления'
 admin.site.index_title = 'Добро пожаловать!'
 
 @admin.register(ExcursionBooking)
@@ -15,7 +15,7 @@ class PhotoAdmin(admin.ModelAdmin):
     list_filter = ('date', 'created_at')
     search_fields = ('title', 'description')
     date_hierarchy = 'date'
-    
+
     fieldsets = (
         ('Основная информация', {
             'fields': ('title', 'description', 'date')
@@ -25,9 +25,9 @@ class PhotoAdmin(admin.ModelAdmin):
             'classes': ('wide',)
         }),
     )
-    
+
     readonly_fields = ('image_preview',)
-    
+
     def image_preview(self, obj):
         if obj.image:
             return format_html(
@@ -58,7 +58,7 @@ class CollageImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'order', 'image_preview')
     list_editable = ('order',)
     fields = ('title', 'image', 'order')
-    
+
     def image_preview(self, obj):
         if obj.image:
             return format_html('<img src="{}" width="50" height="50" style="object-fit:cover;" />', obj.image.url)

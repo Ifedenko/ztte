@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFit
 class ExcursionBooking(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
@@ -13,7 +15,7 @@ class ExcursionBooking(models.Model):
     time = models.CharField(max_length=5)
     people_count = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
         verbose_name = "Запись на экскурсию"
         verbose_name_plural = "Записи на экскурсии"
@@ -42,22 +44,50 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
-        
+
 class Photo(models.Model):
-    title =models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     description = models.TextField()
     date = models.DateField(null=True, blank=True)
-    image = models.ImageField( upload_to='gallery/',
-        blank=False,)
-    created_at = models.DateField(auto_now_add=True)
+
+    image = models.ImageField(upload_to='gallery/')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    image_mobile = ImageSpecField(
+        source='image',
+        processors=[ResizeToFit(480, 480)],
+        format='WEBP',
+        options={'quality': 80}
+    )
+
+    image_tablet = ImageSpecField(
+        source='image',
+        processors=[ResizeToFit(960, 960)],
+        format='WEBP',
+        options={'quality': 80}
+    )
+
+    image_desktop = ImageSpecField(
+        source='image',
+        processors=[ResizeToFit(1440, 1440)],
+        format='WEBP',
+        options={'quality': 85}
+    )
+
+    image_blur = ImageSpecField(
+        source='image',
+        processors=[ResizeToFit(20, 20)],
+        format='WEBP',
+        options={'quality': 20}
+    )
+
     class Meta:
-        verbose_name = 'Фотография'
-        verbose_name_plural = 'Фотографии'
-        ordering = ['-date']  
-    
+        ordering = ['-created_at']
+
     def __str__(self):
         return self.title
-    
+
     def get_absolute_url(self):
         return reverse('photo_detail', args=[str(self.id)])
 class HistoricalEvent(models.Model):
@@ -94,12 +124,12 @@ class CollageImage(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
     image = models.ImageField(upload_to='excursion_collage/', verbose_name='Фото для коллажа')
     order = models.PositiveIntegerField(default=0, verbose_name='Порядок')
-    
+
     class Meta:
         ordering = ['order']
         verbose_name = 'Фото для коллажа'
         verbose_name_plural = 'Фото для коллажа'
-    
+
     def __str__(self):
         return self.title
 
@@ -111,6 +141,6 @@ class RecentEvent(models.Model):
     class Meta:
         verbose_name = 'Недавние событие'
         verbose_name_plural = 'Недавние события'
-        ordering = ['-date'] 
+        ordering = ['-date']
     def __str__(self):
         return self.title
